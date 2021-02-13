@@ -755,3 +755,18 @@ function twentytwenty_get_elements_array() {
 	*/
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
+
+function rest_api($data,$post,$request){ //Data
+	$_data = $data->data;
+
+	//Get the category using Post ID
+	$category = get_the_category($post->ID);
+	$_data['category']=$category;
+	$data->data = $_data;
+
+	return $data;
+
+}
+
+add_filter('rest_prepare_post','rest_api',10,3);
+
