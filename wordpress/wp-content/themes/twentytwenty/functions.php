@@ -756,6 +756,11 @@ function twentytwenty_get_elements_array() {
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
 
+function mytheme_custom_excerpt_length( $length ) {
+    return 20;
+}
+add_filter( 'excerpt_length', 'mytheme_custom_excerpt_length', 999 );
+
 function rest_api($data,$post,$request){ //Data
 	$_data = $data->data;
 
@@ -770,3 +775,9 @@ function rest_api($data,$post,$request){ //Data
 
 add_filter('rest_prepare_post','rest_api',10,3);
 
+
+function post_character_limit($content){
+	return substr($content,0,150);
+}
+
+add_filter("the_content","post_character_limit");
